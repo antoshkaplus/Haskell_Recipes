@@ -147,10 +147,13 @@ fn = ceiling . negate . tan . cos . max 50
 -- Once again, it's very important to distinguish between the type constructor and the value constructor
 
 
-data Person = Person { firstName :: String
-                     , lastName :: String
-                     , age :: Int
-                     } deriving (Eq)
+data Person = Person {
+
+    firstName :: String,
+    lastName :: String,
+    age :: Int
+
+} deriving (Eq)
 
 -- type String = [Char]
 -- can be parametrized

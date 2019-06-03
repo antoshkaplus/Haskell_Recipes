@@ -1,0 +1,8 @@
+resolver: lts-13.24
+
+packages:
+  - .
+
+#compiler: ghc-8.6.5 # this MUST match the resolver's GHC; ensures GHC isn't redownloaded.
+#allow-different-user: true
+#system-ghc: true # don't bother building GHC as it is error prone on Alpine; we assume system has the right compiler
