@@ -1,4 +1,4 @@
-module GreatGood where
+module GreatGood.GreatGood where
 
 -- head
 -- tail
@@ -56,8 +56,9 @@ head' :: [a] -> a
 head' [] = error "No head for empty lists!"
 -- can it work with all the tuples???
 head' (x:_) = x
-head' :: [a] -> a
-head' xs = case xs of [] -> error "No head for empty lists!"
+
+--head' :: [a] -> a
+--head' xs = case xs of [] -> error "No head for empty lists!"
 
 
 -- let binding to introduce function in the local scope
@@ -65,8 +66,8 @@ head' xs = case xs of [] -> error "No head for empty lists!"
 calcBmis :: (RealFloat a) => [(a, a)] -> [a]
 calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2]
 
-calcBmis :: (RealFloat a) => [(a, a)] -> [a]
-calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2, bmi >= 25.0]
+--calcBmis :: (RealFloat a) => [(a, a)] -> [a]
+--calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2, bmi >= 25.0]
 
 
 describeList :: [a] -> String
@@ -103,6 +104,12 @@ flip' :: (a -> b -> c) -> b -> a -> c
 flip' f y x = f x y
 
 
+chain :: (Integral a) => a -> [a]
+chain 1 = [1]
+chain n
+    | even n =  n:chain (n `div` 2)
+    | odd n  =  n:chain (n*3 + 1)
+
 -- lambdas
 numLongChains :: Int
 numLongChains = length (filter (\xs -> length xs > 15) (map chain [1..100]))
@@ -136,7 +143,7 @@ map' f xs = foldr (\x acc -> f x : acc) [] xs
 
 
 -- function composition
-fn x = ceiling (negate (tan (cos (max 50 x))))
+--fn x = ceiling (negate (tan (cos (max 50 x))))
 fn = ceiling . negate . tan . cos . max 50
 
 -- modules
@@ -160,11 +167,12 @@ data Person = Person {
 -- type AssocList k v = [(k,v)]
 
 
-class Eqq a where
-    (==) :: a -> a -> Bool
-    (/=) :: a -> a -> Bool
-    x == y = not (x /= y)
-    x /= y = not (x == y)
+-- Prelude definition
+--class Eq a where
+--    (==) :: a -> a -> Bool
+--    (/=) :: a -> a -> Bool
+--    x == y = not (x /= y)
+--    x /= y = not (x == y)
 
 -- fmap
 -- exceptions

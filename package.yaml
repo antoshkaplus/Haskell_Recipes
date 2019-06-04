@@ -1,0 +1,18 @@
+name: haskell-recipes
+version: '0.0.1'
+
+synopsis: Haskell study project
+
+author: Anton Logunov
+maintainer: antoshkaplus@gmail.com
+category: Development
+copyright: BSD3
+
+dependencies:
+    - random
+    - base
+
+executables:
+    haskell-99:
+        main: Main.hs
+        source-dirs: src
