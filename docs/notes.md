@@ -10,4 +10,35 @@ Show installed packages:
 * ghc-pkg list
 
 ##### Repl
-Press Ctrl+D to exit the GHCi REPL
+```cabal new-repl``` - start repl  
+```stack ghci``` - start repl  
+```stack <filename>``` - run a script  
+
+Press Ctrl+D to exit the GHCi REPL  
+:m - change current module  
+:show paths - from the name
+:t - check declaration type  
+
+#### Vocabulary
+* homogeneous
+* type variable
+* class constant
+* typeclass
+* guards
+* high order functions
+* curried functions
+* infix functions
+
+#### Spec
+* low case - type variable
+* If a function is comprised only of special char-
+    acters, it's considered an infix function by de-
+    fault.
+* ```(==) :: (Eq a) => a -> a -> Bool```
+    the equality function takes
+    any two values that are of the same type and returns a Bool. 
+    The type of those two values must be
+    a member of the Eq class (this was the class constraint).
+    Eq is like a type constraint on type variable.
+* ```xs@(x:y:ys)``` - keep reference for the whole thing    
+* there is no let + guards, you use guards + where    

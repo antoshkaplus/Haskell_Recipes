@@ -69,7 +69,7 @@ calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2]
 --calcBmis :: (RealFloat a) => [(a, a)] -> [a]
 --calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2, bmi >= 25.0]
 
-
+-- what xs is a function call
 describeList :: [a] -> String
 describeList xs = "The list is " ++ what xs
     where what [] = "empty."
