@@ -18,6 +18,9 @@ Press Ctrl+D to exit the GHCi REPL
 :m - change current module  
 :show paths - from the name
 :t - check declaration type  
+:m + Data.List - to reach functions from module,
+    can put multiple modules, don't need if script
+    imports it
 
 #### Vocabulary
 * homogeneous
@@ -28,6 +31,8 @@ Press Ctrl+D to exit the GHCi REPL
 * high order functions
 * curried functions
 * infix functions
+* record syntax
+* type constructor
 
 #### Spec
 * low case - type variable
@@ -42,3 +47,17 @@ Press Ctrl+D to exit the GHCi REPL
     Eq is like a type constraint on type variable.
 * ```xs@(x:y:ys)``` - keep reference for the whole thing    
 * there is no let + guards, you use guards + where    
+* So use lambdas in this way when you want to make it explicit 
+    that your function is mainly meant
+    to be partially applied and passed on to a function as a parameter.
+* ```$``` - lowest precedence operator, function application  
+    ```map ($ 3) [(4+), (10*), (^2), sqrt]```
+*```.``` - function composition
+* The prefered style is to use let bindings to give labels to intermediary results or split the problem
+    into sub-problems and then put it together so that the function makes sense to someone reading
+    it instead of just making a huge composition chain.
+* specify function for export when defining a module
+* So don't put type constraints into data declarations even if it seems to make sense, 
+    because you'll have to put them into the function type declarations either way.
+* the Int type is an instance of the Eq typeclass because the Eq typeclass defines
+    behavior for stuff that can be equated.    

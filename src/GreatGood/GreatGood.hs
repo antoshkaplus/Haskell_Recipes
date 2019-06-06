@@ -102,7 +102,7 @@ zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
 
 flip' :: (a -> b -> c) -> b -> a -> c
 flip' f y x = f x y
-
+-- flip' f = \x y -> f y x
 
 chain :: (Integral a) => a -> [a]
 chain 1 = [1]
@@ -147,6 +147,9 @@ map' f xs = foldr (\x acc -> f x : acc) [] xs
 fn = ceiling . negate . tan . cos . max 50
 
 -- modules
+
+data Shape = Circle Float Float Float | Rectangle Float Float Float Float
+deriving (Show)
 
 -- So don't put type constraints into data declarations even if it seems to make sense, because you'll
 -- have to put them into the function type declarations either way.
