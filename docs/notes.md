@@ -15,12 +15,14 @@ Show installed packages:
 ```stack <filename>``` - run a script  
 
 Press Ctrl+D to exit the GHCi REPL  
-:m - change current module  
-:show paths - from the name
-:t - check declaration type  
-:m + Data.List - to reach functions from module,
+* ```:m``` - change current module  
+* ```:show paths``` - from the name
+* ```:t``` - check declaration type  
+* ```:m + Data.List``` - to reach functions from module,
     can put multiple modules, don't need if script
     imports it
+* ```:info YourTypeClass``` in GHCI to know to which 
+    instances belongs
 
 #### Vocabulary
 * homogeneous
@@ -33,6 +35,11 @@ Press Ctrl+D to exit the GHCi REPL
 * infix functions
 * record syntax
 * type constructor
+* value constructor
+* fixity
+* type instance implementation
+* minimal completion definition for a typeclass
+* class constraint
 
 #### Spec
 * low case - type variable
@@ -60,4 +67,5 @@ Press Ctrl+D to exit the GHCi REPL
 * So don't put type constraints into data declarations even if it seems to make sense, 
     because you'll have to put them into the function type declarations either way.
 * the Int type is an instance of the Eq typeclass because the Eq typeclass defines
-    behavior for stuff that can be equated.    
+    behavior for stuff that can be equated.
+* ```type String = [Char]``` - aliases
