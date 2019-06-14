@@ -23,6 +23,7 @@ Press Ctrl+D to exit the GHCi REPL
     imports it
 * ```:info YourTypeClass``` in GHCI to know to which 
     instances belongs
+* ```:k``` get kind, ```*``` concrete type
 
 #### Vocabulary
 * homogeneous
