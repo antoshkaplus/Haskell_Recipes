@@ -149,7 +149,7 @@ fn = ceiling . negate . tan . cos . max 50
 -- modules
 
 data Shape = Circle Float Float Float | Rectangle Float Float Float Float
-deriving (Show)
+    deriving (Show)
 
 -- So don't put type constraints into data declarations even if it seems to make sense, because you'll
 -- have to put them into the function type declarations either way.
@@ -183,7 +183,7 @@ data Person = Person {
 
 data Day = Monday | Tuesday | Wednesday
     | Thursday | Friday | Saturday | Sunday
-deriving (Eq, Ord, Show, Read, Bounded, Enum)
+    deriving (Eq, Ord, Show, Read, Bounded, Enum)
 
 
 

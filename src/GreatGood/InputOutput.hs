@@ -36,3 +36,7 @@ reverseWords = unwords . map reverse . words
 -- when Control.Monad
 -- sequence
 
+-- sequence (map print [1,2,3,4,5])
+
+-- mapM takes a function and a list, maps the function over the list and then sequences it.
+-- We usually use mapM_ when we don't care what result our sequenced I/O actions have.

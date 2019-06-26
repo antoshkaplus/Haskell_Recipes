@@ -70,3 +70,4 @@ Press Ctrl+D to exit the GHCi REPL
 * the Int type is an instance of the Eq typeclass because the Eq typeclass defines
     behavior for stuff that can be equated.
 * ```type String = [Char]``` - aliases
+* ```return``` - puts value in a box, ```,``` - takes it out
