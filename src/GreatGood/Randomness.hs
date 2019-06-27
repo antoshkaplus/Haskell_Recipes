@@ -26,3 +26,5 @@ threeCoins gen =
 --    in (value:restOfList, finalGen)
 --
 
+-- getStdGen
+-- newStdGen

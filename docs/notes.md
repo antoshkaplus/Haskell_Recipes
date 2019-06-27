@@ -73,3 +73,4 @@ Press Ctrl+D to exit the GHCi REPL
 * ```type String = [Char]``` - aliases
 * ```return``` - puts value in a box, ```,``` - takes it out
 * ```relaod``` - reload current module
+* only IO code can throw, as it has order of execution
