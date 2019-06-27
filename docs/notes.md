@@ -24,6 +24,7 @@ Press Ctrl+D to exit the GHCi REPL
 * ```:info YourTypeClass``` in GHCI to know to which 
     instances belongs
 * ```:k``` get kind, ```*``` concrete type
+* ```:l :r```
 
 #### Vocabulary
 * homogeneous
@@ -71,3 +72,4 @@ Press Ctrl+D to exit the GHCi REPL
     behavior for stuff that can be equated.
 * ```type String = [Char]``` - aliases
 * ```return``` - puts value in a box, ```,``` - takes it out
+* ```relaod``` - reload current module

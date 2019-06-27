@@ -11,6 +11,7 @@ copyright: BSD3
 dependencies:
     - random
     - base
+    - directory
 
 executables:
     haskell-99:
