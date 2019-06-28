@@ -1,4 +1,4 @@
-module GreatGood.Exceptions
+module GreatGood.Bytestring where
 
 -- cons - lazy
 -- cons' - strict

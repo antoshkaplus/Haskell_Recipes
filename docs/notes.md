@@ -42,6 +42,10 @@ Press Ctrl+D to exit the GHCi REPL
 * type instance implementation
 * minimal completion definition for a typeclass
 * class constraint
+* abstract datatype 
+* parameterized data type
+* concrete data type
+* applicative functor (Control.Applicative)
 
 #### Spec
 * low case - type variable
@@ -71,6 +75,18 @@ Press Ctrl+D to exit the GHCi REPL
 * the Int type is an instance of the Eq typeclass because the Eq typeclass defines
     behavior for stuff that can be equated.
 * ```type String = [Char]``` - aliases
-* ```return``` - puts value in a box, ```,``` - takes it out
+* ```return``` - puts value in a box, ```<-``` - takes it out
 * ```relaod``` - reload current module
 * only IO code can throw, as it has order of execution
+* an abstract datatype f a, which has the ability for it's value(s) to be mapped over 
+    can become an instance of the Functor typeclass. Functors preserve composition of morphisms.
+* ```fmap :: (a -> b) -> (f a -> f b)``` - lifting a function. 
+    You can think of fmap as either a function that takes a function and a functor and then maps that
+    function over the functor, or you can think of it as a function that takes a function and lifts that
+    function so that it operates on functors.
+* a pathological example of a type constructor being an instance of the Functor
+      typeclass but not really being a functor, because it doesn't satisfy the laws. Let's say that we have
+      a type:
+      ```data CMaybe a = CNothing | CJust Int a deriving (Show)```
+* mapping "multi-parameter" functions over functors, we get functors that contain
+  functions inside them
