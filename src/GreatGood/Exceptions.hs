@@ -1,3 +1,5 @@
+module GreatGood.Exceptions where
+
 import System.Environment
 import System.IO
 import System.IO.Error
