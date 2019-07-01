@@ -47,6 +47,13 @@ Press Ctrl+D to exit the GHCi REPL
 * concrete data type
 * applicative functor (Control.Applicative)
 
+#### Typeclasses
+* Eq
+* Ord
+* Functor
+* Applicative
+* Monoid (operation associativity, identity)
+
 #### Spec
 * low case - type variable
 * If a function is comprised only of special char-
@@ -90,3 +97,13 @@ Press Ctrl+D to exit the GHCi REPL
       ```data CMaybe a = CNothing | CJust Int a deriving (Show)```
 * mapping "multi-parameter" functions over functors, we get functors that contain
   functions inside them
+* ```<*>``` - ```f (a -> b) -> f a -> f b```
+* ```(<$>) :: (Functor f) => (a -> b) -> f a -> f b```
+  ```f <$> x = fmap f x```
+* ```(,,) function is the same as \x y z -> (x,y,z)```
+* ```(,,) <$> ZipList "dog" <*> ZipList "cat" <*> ZipList "rat"``` - can be replaced with ```zipWith3``` resulting in
+    ```[('d','c','r'),('o','a','a'),('g','t','t')]```
+* The newtype keyword, when we want to just take one type and wrap it in something to present it as another type:
+    ```newtype ZipList a = ZipList { getZipList :: [a] }```
+* ```(>>=) :: (Monad m) => m a -> (a -> m b) -> m b```, ```>>=``` - bind
+* Functor => Applicative Functor => Monad
