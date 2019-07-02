@@ -46,6 +46,10 @@ Press Ctrl+D to exit the GHCi REPL
 * parameterized data type
 * concrete data type
 * applicative functor (Control.Applicative)
+* add context of failure using maybe
+
+* monad transformer
+
 
 #### Typeclasses
 * Eq
@@ -107,3 +111,5 @@ Press Ctrl+D to exit the GHCi REPL
     ```newtype ZipList a = ZipList { getZipList :: [a] }```
 * ```(>>=) :: (Monad m) => m a -> (a -> m b) -> m b```, ```>>=``` - bind
 * Functor => Applicative Functor => Monad
+* every monad is an applicative functor
+* ```do``` expressions are just different syntax for chaining monadic values. we can chain any actions as long as all of them are in the same monad.
