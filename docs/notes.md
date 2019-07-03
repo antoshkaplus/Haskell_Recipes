@@ -113,3 +113,6 @@ Press Ctrl+D to exit the GHCi REPL
 * Functor => Applicative Functor => Monad
 * every monad is an applicative functor
 * ```do``` expressions are just different syntax for chaining monadic values. we can chain any actions as long as all of them are in the same monad.
+* list comprehensions are just syntactic sugar for using lists as monads
+* MonadPlus type class is for monads that can also act as monoids.
+* non-deterministic value - we don't know what's inside the monad box/container ?

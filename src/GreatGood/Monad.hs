@@ -90,3 +90,23 @@ routine = do
 --    return x = [x]
 --    xs >>= f = concat (map f xs)
 --    fail _ = []
+
+--    ghci> [1,2] >>= \n -> ['a','b'] >>= \ch -> return (n,ch)
+--    [(1,'a'),(1,'b'),(2,'a'),(2,'b')]
+
+--    listOfTuples :: [(Int,Char)]
+--    listOfTuples = do
+--    n <- [1,2]
+--    ch <- ['a','b']
+--    return (n,ch)
+
+
+
+--    sevensOnly :: [Int]
+--    sevensOnly = do
+--    x <- [1..50]
+--    guard ('7' `elem` show x)
+--    return x
+
+--    ghci> [ x | x <- [1..50], '7' `elem` show x ]
+--    [7,17,27,37,47]
