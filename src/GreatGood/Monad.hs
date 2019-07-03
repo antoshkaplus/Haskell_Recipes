@@ -110,3 +110,9 @@ routine = do
 
 --    ghci> [ x | x <- [1..50], '7' `elem` show x ]
 --    [7,17,27,37,47]
+
+
+
+--    instance Monad ((->) r) where  -- reader monad
+--        return x = \_ -> x
+--        h >>= f = \w -> f (h w) w

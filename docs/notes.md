@@ -47,6 +47,7 @@ Press Ctrl+D to exit the GHCi REPL
 * concrete data type
 * applicative functor (Control.Applicative)
 * add context of failure using maybe
+* difference list
 
 * monad transformer
 
@@ -57,6 +58,18 @@ Press Ctrl+D to exit the GHCi REPL
 * Functor
 * Applicative
 * Monoid (operation associativity, identity)
+
+#### Monad Laws
+* left identity: return x >>= f is the same thing as f x
+* right identity: m >>= return is no different than just m
+* associativity: Doing (m >>= f) >>= g is just like doing m >>= (\x -> f x >>= g)
+
+#### Monad binding/composition operators:
+* (>>=) :: Monad m => m a -> (a -> m b) -> m b
+* (=<<) :: Monad m => (a -> m b) -> m a -> m b
+* (>>) :: Monad m => m a -> m b -> m b
+* (>=>) :: Monad m => (a -> m b) -> (b -> m c) -> (a -> m c)
+* (<=<) :: Monad m => (b -> m c) -> (a -> m b) -> (a -> m c)
 
 #### Spec
 * low case - type variable
@@ -116,3 +129,4 @@ Press Ctrl+D to exit the GHCi REPL
 * list comprehensions are just syntactic sugar for using lists as monads
 * MonadPlus type class is for monads that can also act as monoids.
 * non-deterministic value - we don't know what's inside the monad box/container ?
+* reader monad allows us to treat functions as values with a context
