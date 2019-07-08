@@ -130,3 +130,8 @@ Press Ctrl+D to exit the GHCi REPL
 * MonadPlus type class is for monads that can also act as monoids.
 * non-deterministic value - we don't know what's inside the monad box/container ?
 * reader monad allows us to treat functions as values with a context
+* An expression is called referentially transparent if it can be replaced with its corresponding value without changing the program's behavior.
+    This requires that the expression is pure, that is to say the expression value must be the same for the same inputs and its evaluation 
+    must have no side effects. An expression that is not referentially transparent is called referentially opaque.
+  
+
