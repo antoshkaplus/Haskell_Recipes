@@ -1,8 +1,8 @@
-module Q20 where
+module Problems_99.Q20 where
 
 -- isRight is not imported by default
 import Data.Either
-import qualified Q10
+import qualified Problems_99.Q10 as Q10
 
 
 -- 1 Problem 11

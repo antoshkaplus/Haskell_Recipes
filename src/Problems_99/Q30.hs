@@ -1,10 +1,10 @@
-module Q30 where
+module Problems_99.Q30 where
 
 import System.Random
 import Control.Monad (replicateM)
 
 
-import qualified Q20
+import qualified Problems_99.Q20 as Q20
 
 -- 1 Problem 21
 -- Insert an element at a given position into a list.

@@ -1,3 +1,5 @@
+module GreatGood.Monad where
+
 
 --  class Monad m where
 --      return :: a -> m a

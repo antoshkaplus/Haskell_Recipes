@@ -1,4 +1,6 @@
-module Q10 where
+module Problems_99.Q10 where
+
+import Data.List (group)
 
 
 short_list = [1,2,3,4]
@@ -12,6 +14,9 @@ short_list = [1,2,3,4]
 input_1 = short_list
 sol_1 = last
 
+sol_1' [x] = x
+sol_1' (x:xs) = sol_1' xs
+
 -- 2 Problem 2
 -- (*) Find the last but one element of a list.
 -- Prelude> myButLast [1,2,3,4]
@@ -20,6 +25,9 @@ sol_1 = last
 input_2 = short_list
 sol_2 = last . init
 
+sol_2' [x,y] = x
+sol_2' (x:xs) = sol_2' xs
+
 -- 3 Problem 3
 -- (*) Find the K'th element of a list. The first element in the list is number 1.
 -- * (element-at '(a b c d e) 3)
@@ -27,6 +35,10 @@ sol_2 = last . init
 
 input_3 = (short_list, 1)
 sol_3 list = (list !!)
+
+sol_3' (x:xs) 1 = x
+sol_3' (x:xs) k = sol_3' xs (k-1)
+
 
 -- USING LET SYNTAX
 -- main = print $ let (list, index) = input_3 in sol_3 list index
@@ -43,6 +55,9 @@ input_4 = short_list
 sol_4 :: [a] -> Int
 sol_4 = length
 
+sol_4' [] = 0
+sol_4' (x:xs) = 1 + sol_4' xs
+
 
 -- 5 Problem 5
 -- (*) Reverse a list.
@@ -51,6 +66,10 @@ sol_4 = length
 
 input_5 = short_list
 sol_5 = reverse
+
+sol_5' ps = let rev (x:xs) ys = rev xs (x:ys)
+                rev [] ys = ys
+            in rev ps []
 
 
 -- 6 Problem 6
@@ -69,6 +88,13 @@ isPalindrome xs = (head xs) == (last xs) && (isPalindrome $ init $ tail xs)
 
 input_6_1 = short_list
 input_6_2 = short_list ++ reverse short_list
+
+
+palindrome :: (Eq a) => [a] -> Bool
+palindrome xs = p [] xs xs
+   where p rev (x:xs) (_:_:ys) = p (x:rev) xs ys
+         p rev (x:xs) [_] = rev == xs
+         p rev xs [] = rev == xs
 
 -- main = print $ isPalindrome input_6_2
 
@@ -90,6 +116,12 @@ flatten (Elem x) = [x]
 -- thats why we should be fine here
 flatten (List x) = concatMap flatten x
 
+
+flatten' (Elem x) = [x]
+flatten' (List []) = []
+flatten' (List (x:xs)) = (flatten' x) ++ (flatten' (List xs))
+
+
 input_7 = List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]
 sol_7 = flatten
 
@@ -107,6 +139,16 @@ compress :: (Eq a) => [a] -> [a]
 compress [] = []
 compress [a] = [a]
 compress (x:xs) = (if x == head xs then [] else [x]) ++ compress xs
+
+compress' (x:ys@(y:_))
+    | x == y    = compress' ys
+    | otherwise = x : compress' ys
+compress' ys = ys
+
+-- group - splits its list argument into a list of lists of equal, adjacent elements
+-- Eq a => [a] -> [[a]]
+compress'' :: Eq a => [a] -> [a]
+compress'' = map head . group
 
 -- main = print $ compress "aaaabccaadeeee"
 
@@ -126,8 +168,20 @@ compress (x:xs) = (if x == head xs then [] else [x]) ++ compress xs
 pack :: (Eq a) => [a] -> [[a]]
 pack [] = []
 pack [a] = [[a]]
-pack (x:xs) = if x == head first then (x : first) : rest else [x] : first : rest  where
-    (first:rest) = pack xs
+pack (x:xs)
+    | x == head first = (x : first) : rest
+    | otherwise       = [x] : first : rest
+    where (first:rest) = pack xs
+
+pack' x = group x
+
+pack'' ts = let
+    p [] ys = ys
+    p (x:xs) [] = p xs [[x]]
+    p (x:xs) (y:ys)
+        | x == head y = (x:y):ys
+        | otherwise   = [x]:y:ys
+    in p ts []
 
 input_9 = [1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5]
 -- main = print $ pack input_9

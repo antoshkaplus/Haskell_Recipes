@@ -1,7 +1,7 @@
 module Main where
 
-import Q20
-import Q30
+import Problems_99.Q20
+import Problems_99.Q30
 import GreatGood.InputOutput
 import GreatGood.Randomness
 

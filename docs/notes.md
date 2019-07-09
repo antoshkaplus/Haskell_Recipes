@@ -135,3 +135,5 @@ Press Ctrl+D to exit the GHCi REPL
     must have no side effects. An expression that is not referentially transparent is called referentially opaque.
   
 
+#### Naming Conventions
+* 
