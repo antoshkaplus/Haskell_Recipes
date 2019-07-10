@@ -179,9 +179,14 @@ pack'' ts = let
     p [] ys = ys
     p (x:xs) [] = p xs [[x]]
     p (x:xs) (y:ys)
-        | x == head y = (x:y):ys
-        | otherwise   = [x]:y:ys
-    in p ts []
+        | x == head y = p xs ((x:y):ys)
+        | otherwise   = p xs ([x]:y:ys)
+    in reverse $ p ts []
+
+pack''' [] = []
+pack''' xs = let (xs_1, xs_2) = span (==(head xs)) xs
+             in xs_1 : (pack xs_2)
+
 
 input_9 = [1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5]
 -- main = print $ pack input_9
@@ -222,5 +227,7 @@ encode :: (Eq a) => [a] -> [Code a]
 -- map something return ([[a]] -> [Code a]) and pack ([a] -> [[a]]) => [a] -> [Code a]
 -- somehow it works
 encode = map (\x -> Code (length x) (head x)) . pack
+
+encode' xs = [(length x, head x) | x <- group xs]
 
 -- main = print $ encode input_10

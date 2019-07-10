@@ -96,6 +96,16 @@ repli :: [x] -> Int -> [x]
 repli [] n = []
 repli (x:xs) n = (replicate n x) ++ (repli xs n)
 
+repli' [] n   = []
+repli' (x:xs) n = (rep x n) ++ (repli' xs n)
+    where rep x 0 = []
+          rep x n = x:(rep x (n-1))
+
+-- using monad
+--  repli :: [a] -> Int -> [a]
+--  repli xs n = xs >>= replicate n
+
+
 -- uncurry repli input_15
 
 -- 6 Problem 16
@@ -105,12 +115,12 @@ repli (x:xs) n = (replicate n x) ++ (repli xs n)
 
 input_16 :: (String, Int)
 input_16 = ("abcdefghik", 3)
+-- "abdeghk"
 
 drop16 :: [x] -> Int -> [x]
 drop16 xs n = [x | (x, i) <- zip xs [1..] , mod i n /= 0]
 
 -- uncurry drop16 input_16
-
 
 
 -- 7 Problem 17
@@ -124,9 +134,13 @@ input_17 = ("abcdefghik", 3)
 
 split :: [a] -> Int -> ([a], [a])
 split [] _ = ([], [])
+-- pattern match 0 would be nice instead of condition
 split l@(x : xs) n | n > 0     = (x : ys, zs)
                    | otherwise = ([], l)
     where (ys,zs) = split xs (n - 1)
+
+--  split xs n = (take n xs, drop n xs)
+--  split = flip splitAt
 
 
 -- uncurry split input_17

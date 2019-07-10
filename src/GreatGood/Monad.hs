@@ -89,9 +89,9 @@ routine = do
 
 
 --    instance Monad [] where
---    return x = [x]
---    xs >>= f = concat (map f xs)
---    fail _ = []
+--      return x = [x]
+--      xs >>= f = concat (map f xs)
+--      fail _ = []
 
 --    ghci> [1,2] >>= \n -> ['a','b'] >>= \ch -> return (n,ch)
 --    [(1,'a'),(1,'b'),(2,'a'),(2,'b')]
