@@ -2,7 +2,7 @@ module Problems_99.Q30 where
 
 import System.Random
 import Control.Monad (replicateM)
-
+import Data.List (nub)
 
 import qualified Problems_99.Q20 as Q20
 
@@ -50,6 +50,15 @@ rnd_select l  n
                      return [l!!p | p <- pos]
 
 
+-- randomRs
+-- Plural variant of randomR, producing an infinite list of random values instead of returning a new generator.
+
+--    rnd_select xs n = do
+--        gen <- getStdGen
+--        return $ take n [ xs !! x | x <- randomRs (0, (length xs) - 1) gen]
+
+
+
 --
 --
 -- 4 Problem 24
@@ -59,8 +68,12 @@ rnd_select l  n
 --
 -- * (rnd-select 6 49)
 -- (23 1 17 33 21 37)
---
---
+
+rnd_select_2 n bound = do
+    gen <- getStdGen
+    return . take n . nub $ randomRs (1, bound) gen
+
+
 --
 -- 5 Problem 25
 -- Generate a random permutation of the elements of a list.
@@ -70,7 +83,14 @@ rnd_select l  n
 -- * (rnd-permu '(a b c d e f))
 -- (B A D C E F)
 --
---
+
+-- these one doesn't provide distinct, please change
+rnd_permu :: [a] -> IO [a]
+rnd_permu xs = rnd_select xs (length xs)
+
+-- randomRIO - uses global random generator
+
+
 --
 --
 -- 6 Problem 26
@@ -83,8 +103,22 @@ rnd_select l  n
 -- * (combinations 3 '(a b c d e f))
 -- ((A B C) (A B D) (A B E) ... )
 --
---
---
+
+comb :: [a] -> [a] -> Int -> Int -> [[a]]
+comb taken_items left_items left_count need_count
+    | need_count == 0 = [taken_items]
+    | left_count < need_count = []
+    | otherwise = (comb ((head left_items):taken_items) (tail left_items) (left_count-1) (need_count-1)) ++
+                  (comb taken_items (tail left_items) (left_count-1) need_count)
+
+combinations n xs = comb [] xs (length xs) n
+
+--    combinations :: Int -> [a] -> [[a]]
+--    combinations 0 _  = [ [] ]
+--    combinations n xs = [ y:ys | y:xs' <- tails xs
+--                               , ys <- combinations (n-1) xs']
+
+
 --
 -- 7 Problem 27
 -- Group the elements of a set into disjoint subsets.
@@ -96,6 +130,7 @@ rnd_select l  n
 -- * (group3 '(aldo beat carla david evi flip gary hugo ida))
 -- ( ( (ALDO BEAT) (CARLA DAVID EVI) (FLIP GARY HUGO IDA) )
 -- ... )
+--
 -- b) Generalize the above predicate in a way that we can specify a list of group sizes and the predicate will return a list of groups.
 --
 -- Example:
@@ -117,7 +152,11 @@ rnd_select l  n
 -- [[["aldo","beat"],["carla","david"],["evi","flip","gary","hugo","ida"]],...]
 -- (altogether 756 solutions)
 --
---
+
+
+
+
+
 --
 -- 8 Problem 28
 -- Sorting a list of lists according to length of sublists
@@ -138,3 +177,6 @@ rnd_select l  n
 --
 -- * (lfsort '((a b c) (d e) (f g h) (d e) (i j k l) (m n) (o)))
 -- ((i j k l) (o) (a b c) (f g h) (d e) (d e) (m n))
+
+
+-- Problem 29 and 30 don't exist

@@ -139,9 +139,9 @@ split l@(x : xs) n | n > 0     = (x : ys, zs)
                    | otherwise = ([], l)
     where (ys,zs) = split xs (n - 1)
 
---  split xs n = (take n xs, drop n xs)
---  split = flip splitAt
-
+--  other versions:
+--  * split xs n = (take n xs, drop n xs)
+--  * split = flip splitAt
 
 -- uncurry split input_17
 
@@ -162,6 +162,9 @@ slice :: [a] -> Int -> Int -> [a]
 slice [] _ _ = []
 slice xs i k = [x | (x, j) <- zip xs [1..], j >= i && j <= k]
 
+slice' xs i k = take (k-i+1) $ drop (i-1) xs
+
+
 uncurry3 :: (a -> b -> c -> d) -> (a, b, c) -> d
 uncurry3 f (a, b, c)       = f a b c
 
@@ -181,14 +184,22 @@ uncurry3 f (a, b, c)       = f a b c
 input_19_1 :: (String, Int)
 input_19_2 :: (String, Int)
 
-input_19_1 = ("abcdefgh", 3)
-input_19_2 = ("abcdefgh", -2)
+input_19_1 = ("abcdefgh", 3) -- "defghabc"
+input_19_2 = ("abcdefgh", -2) -- "ghabcdef"
 
 rotate :: [a] -> Int -> [a]
 rotate l@(x:xs) n
     | n > 0 = rotate (xs ++ [x]) (n-1)
     | n == 0 = l
     | otherwise = rotate l (length l + n)
+
+rotate' xs n
+    | n == 0 = xs
+    | n < 0  = rotate' xs $ (length xs) + n
+    | otherwise =
+        let (xs_1, xs_2) = splitAt n xs
+        in xs_2 ++ xs_1
+
 
 -- uncurry rotate input_19_1
 
@@ -200,8 +211,11 @@ rotate l@(x:xs) n
 --(a b c d) 2
 --(a c d)
 
-input_20 = ("abcd", 2)
+input_20 = ("abcd", 2) -- "acd"
 
 drop20 xs k = [x | (x, i) <- zip xs [1..], i /= k]
+
+drop' xs k = let (xs_1, xs_2) = splitAt k xs
+             in (init xs_1) ++ xs_2
 
 -- uncurry drop input_20
