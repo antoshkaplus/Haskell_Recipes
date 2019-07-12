@@ -2,7 +2,8 @@ module Problems_99.Q30 where
 
 import System.Random
 import Control.Monad (replicateM)
-import Data.List (nub)
+import Data.List (nub, inits, tails, sortBy, groupBy)
+import Data.Ord (comparing)
 
 import qualified Problems_99.Q20 as Q20
 
@@ -115,8 +116,14 @@ combinations n xs = comb [] xs (length xs) n
 
 --    combinations :: Int -> [a] -> [[a]]
 --    combinations 0 _  = [ [] ]
+-- tails returns empty list too
 --    combinations n xs = [ y:ys | y:xs' <- tails xs
 --                               , ys <- combinations (n-1) xs']
+
+combinations' :: Int -> [a] -> [([a],[a])]
+combinations' 0 xs  = [ ([], xs) ]
+combinations' n xs = [ (y:ys, x_other ++ y_other) | (x_other, y:x_next) <- zip (inits xs) (tails xs)
+                                                  , (ys, y_other) <- combinations' (n-1) x_next]
 
 
 --
@@ -153,15 +160,17 @@ combinations n xs = comb [] xs (length xs) n
 -- (altogether 756 solutions)
 --
 
-
-
-
+group :: [Int] -> [a] -> [[[a]]]
+group [n] elems = [[elems]]
+group (n:ns) elems = [ pick:other_pick | (pick, other) <- combinations' n elems
+                                       , other_pick <- group ns other]
 
 --
 -- 8 Problem 28
 -- Sorting a list of lists according to length of sublists
 --
--- a) We suppose that a list contains elements that are lists themselves. The objective is to sort the elements of this list according to their length. E.g. short lists first, longer lists later, or vice versa.
+-- a) We suppose that a list contains elements that are lists themselves. The objective is to sort the elements of this list according to their length.
+-- E.g. short lists first, longer lists later, or vice versa.
 --
 -- Example:
 --
@@ -171,12 +180,21 @@ combinations n xs = comb [] xs (length xs) n
 --
 -- Prelude>lsort ["abc","de","fgh","de","ijkl","mn","o"]
 -- Prelude>["o","de","de","mn","abc","fgh","ijkl"]
--- b) Again, we suppose that a list contains elements that are lists themselves. But this time the objective is to sort the elements of this list according to their length frequency; i.e., in the default, where sorting is done ascendingly, lists with rare lengths are placed first, others with a more frequent length come later.
+--
+-- b) Again, we suppose that a list contains elements that are lists themselves. But this time the objective is to sort the elements of this list
+-- according to their length frequency; i.e., in the default, where sorting is done ascendingly, lists with rare lengths are placed first,
+-- others with a more frequent length come later.
 --
 -- Example:
 --
 -- * (lfsort '((a b c) (d e) (f g h) (d e) (i j k l) (m n) (o)))
 -- ((i j k l) (o) (a b c) (f g h) (d e) (d e) (m n))
+
+lsort :: [[a]] -> [[a]]
+lsort = sortBy $ comparing length
+
+lfsort :: [[a]] -> [[a]]
+lfsort xs = concat . lsort . groupBy (\x y -> (length x) == (length y)) $ lsort xs
 
 
 -- Problem 29 and 30 don't exist

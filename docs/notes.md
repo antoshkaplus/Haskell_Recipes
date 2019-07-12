@@ -48,6 +48,7 @@ Press Ctrl+D to exit the GHCi REPL
 * applicative functor (Control.Applicative)
 * add context of failure using maybe
 * difference list
+* parametric polymorphism
 
 * monad transformer
 
@@ -133,6 +134,10 @@ Press Ctrl+D to exit the GHCi REPL
 * An expression is called referentially transparent if it can be replaced with its corresponding value without changing the program's behavior.
     This requires that the expression is pure, that is to say the expression value must be the same for the same inputs and its evaluation 
     must have no side effects. An expression that is not referentially transparent is called referentially opaque.
+* When something went terribly wrong use function ```error :: String -> a```
+
+#### Advice
+* use ```-fwarn-name-shadowing```
   
 
 #### Naming Conventions
