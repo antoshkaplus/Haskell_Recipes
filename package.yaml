@@ -13,6 +13,7 @@ dependencies:
     - base
     - directory
     - containers
+    - text-format
 
 executables:
     haskell-99:

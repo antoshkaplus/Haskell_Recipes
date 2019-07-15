@@ -32,7 +32,7 @@ Press Ctrl+D to exit the GHCi REPL
 * class constant
 * typeclass
 * guards
-* high order functions
+* high order functions - take function as an argument
 * curried functions
 * infix functions
 * record syntax
@@ -50,9 +50,11 @@ Press Ctrl+D to exit the GHCi REPL
 * difference list
 * parametric polymorphism
 * model indeterminism
+* structural recursion
 
 * monad transformer
 
+* TCO - tail call optimization
 
 #### Typeclasses
 * Eq
@@ -137,9 +139,11 @@ Press Ctrl+D to exit the GHCi REPL
     must have no side effects. An expression that is not referentially transparent is called referentially opaque.
 * When something went terribly wrong use function ```error :: String -> a```
 
+
+
 #### Advice
 * use ```-fwarn-name-shadowing```
-  
+* use ```seq``` for strict evaluation of the first argument. When evaluating an expression, seq stops as soon as it reaches a constructor.
 
 #### Naming Conventions
 * 
