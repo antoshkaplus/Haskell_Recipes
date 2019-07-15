@@ -12,6 +12,7 @@ dependencies:
     - random
     - base
     - directory
+    - containers
 
 executables:
     haskell-99:

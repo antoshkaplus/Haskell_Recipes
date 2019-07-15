@@ -1,6 +1,6 @@
 module Problems_99.Q40 where
 
-import Data.List (takeWhile)
+import Data.List
 
 --    Problem 31
 --    (**) Determine whether a given integer number is prime.
@@ -74,60 +74,73 @@ primeFactors n = let p = head [k | k <- [2..n], mod n k == 0]
 --    prime_factors_mult 315
 --    [(3,2),(5,1),(7,1)]
 
-
+prime_factors_mult :: Int -> [(Int, Int)]
+prime_factors_mult = (map (\x -> (head x, length x))) . group . primeFactors
 
 --    Problem 37
 --    (**) Calculate Euler's totient function phi(m) (improved).
 --
---    See problem 34 for the definition of Euler's totient function. If the list of the prime factors of a number m is known in the form of problem 36 then the function phi(m) can be efficiently calculated as follows: Let ((p1 m1) (p2 m2) (p3 m3) ...) be the list of prime factors (and their multiplicities) of a given number m. Then phi(m) can be calculated with the following formula:
+--    See problem 34 for the definition of Euler's totient function. If the list of the prime factors of a number m is known in the form of problem 36
+--    then the function phi(m) can be efficiently calculated as follows: Let ((p1 m1) (p2 m2) (p3 m3) ...) be the list of prime factors (and their multiplicities)
+--    of a given number m. Then phi(m) can be calculated with the following formula:
 --
 --    phi(m) = (p1 - 1) * p1 ** (m1 - 1) *
 --             (p2 - 1) * p2 ** (m2 - 1) *
 --             (p3 - 1) * p3 ** (m3 - 1) * ...
 --    Note that a ** b stands for the b'th power of a.
---
---    Solutions
---
+
+phi :: [(Integer, Integer)] -> Integer
+phi xs = foldr1 (*) $ map (\(p, m) -> (p-1)*p^(m-1)) xs
+
+--    totient m = product [(p - 1) * p ^ (c - 1) | (p, c) <- prime_factors_mult m]
+
+
 --    Problem 38
 --    (*) Compare the two methods of calculating Euler's totient function.
---
 --    Use the solutions of problems 34 and 37 to compare the algorithms. Take the number of reductions as a measure for efficiency. Try to calculate phi(10090) as an example.
 --
 --    (no solution required)
---
---
+
+-- the second solution is better, since immediatly reduces number of iterations
+-- the whole thing is around linear time, while the first algo has burden of looking for GCD each time
+-- which is linear operation by itself (maybe logarithmic though).
+
+
 --    Problem 39
 --    (*) A list of prime numbers.
---
 --    Given a range of integers by its lower and upper limit, construct a list of all prime numbers in that range.
 --
---    Example in Haskell:
---
---    λ> primesR 10 20
+--    primesR 10 20
 --    [11,13,17,19]
---    Solutions
---
---
+
+--    slow, beatiful but not my code
+primesR :: Integral a => a -> a -> [a]
+primesR a b = takeWhile (<= b) $ dropWhile (< a) $ sieve [2..]
+  where sieve (n:ns) = n:sieve [ m | m <- ns, m `mod` n /= 0 ]
+
+
 --    Problem 40
 --    (**) Goldbach's conjecture.
 --
---    Goldbach's conjecture says that every positive even number greater than 2 is the sum of two prime numbers. Example: 28 = 5 + 23. It is one of the most famous facts in number theory that has not been proved to be correct in the general case. It has been numerically confirmed up to very large numbers (much larger than we can go with our Prolog system). Write a predicate to find the two prime numbers that sum up to a given even integer.
+--    Goldbach's conjecture says that every positive even number greater than 2 is the sum of two prime numbers. Example: 28 = 5 + 23.
+--    It is one of the most famous facts in number theory that has not been proved to be correct in the general case. It has been numerically
+--    confirmed up to very large numbers (much larger than we can go with our Prolog system).
+--    Write a predicate to find the two prime numbers that sum up to a given even integer.
 --
---    Example:
---
---    * (goldbach 28)
---    (5 23)
---    Example in Haskell:
---
---    λ> goldbach 28
+--    goldbach 28
 --    (5, 23)
---    Solutions
---
---
+
+goldbach n = let p = head [k | k <- [2..], isPrime k, isPrime (n-k)] in (p, n-p)
+
+--    goldbach n = head [(x,y) | x <- primesR 2 (n-2),
+--                               let y = n-x, isPrime y]
+
+
 --    Problem 41
 --    (**) Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
 --
---    In most cases, if an even number is written as the sum of two prime numbers, one of them is very small. Very rarely, the primes are both bigger than say 50. Try to find out how many such cases there are in the range 2..3000.
+--    In most cases, if an even number is written as the sum of two prime numbers, one of them is very small. Very rarely, the primes are both bigger than say 50.
+--    Try to find out how many such cases there are in the range 2..3000.
 --
 --    Example:
 --
@@ -145,7 +158,17 @@ primeFactors n = let p = head [k | k <- [2..n], mod n k == 0]
 --    1928 = 61 + 1867
 --    Example in Haskell:
 --
---    λ> goldbachList 9 20
+--    goldbachList 9 20
 --    [(3,7),(5,7),(3,11),(3,13),(5,13),(3,17)]
---    λ> goldbachList' 4 2000 50
+--    goldbachList' 4 2000 50
 --    [(73,919),(61,1321),(67,1789),(61,1867)]
+
+goldbachList n_1 n_2 = map goldbach [k | k <- [n_1..n_2], even k]
+
+--    goldbachList lb ub = map goldbach $ [even_lb,even_lb+2..ub]
+--        where even_lb = max ((lb+1) `div` 2 * 2) 4
+--    goldbachList' lb ub mv = filter (\(a,b) -> a > mv && b > mv) $
+--                             goldbachList lb ub
+
+--    goldbachList n m = map goldbach $ dropWhile (<4) $ filter even [n..m]
+--    goldbachList' n m i = filter (\(x,y) -> x > i && y > i) $ goldbachList n m

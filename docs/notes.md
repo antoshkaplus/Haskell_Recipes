@@ -49,6 +49,7 @@ Press Ctrl+D to exit the GHCi REPL
 * add context of failure using maybe
 * difference list
 * parametric polymorphism
+* model indeterminism
 
 * monad transformer
 
