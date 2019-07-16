@@ -31,6 +31,7 @@ Press Ctrl+D to exit the GHCi REPL
 * type variable
 * class constant
 * typeclass
+* typecalss instance
 * guards
 * high order functions - take function as an argument
 * curried functions
@@ -138,12 +139,22 @@ Press Ctrl+D to exit the GHCi REPL
     This requires that the expression is pure, that is to say the expression value must be the same for the same inputs and its evaluation 
     must have no side effects. An expression that is not referentially transparent is called referentially opaque.
 * When something went terribly wrong use function ```error :: String -> a```
-
+* Typeclasses define a set of functions that can have different implementations depending on the type of data they are given.
 
 
 #### Advice
 * use ```-fwarn-name-shadowing```
 * use ```seq``` for strict evaluation of the first argument. When evaluating an expression, seq stops as soon as it reaches a constructor.
+* use undefined to write stub code:
+    ```
+    double :: Double -> Doc
+    double num = undefined
+    ```
+* Haskell’s typeclasses are intentionally designed to let us create new instances of a type-
+  class whenever we see fit
+* When you’re working in a do block, use <- to get results from IO actions and let to get 
+  results from pure code.
+* 
 
 #### Naming Conventions
 * 
