@@ -52,6 +52,8 @@ Press Ctrl+D to exit the GHCi REPL
 * parametric polymorphism
 * model indeterminism
 * structural recursion
+* strict evaluation
+* lazy evaluation
 
 * monad transformer
 
@@ -140,7 +142,10 @@ Press Ctrl+D to exit the GHCi REPL
     must have no side effects. An expression that is not referentially transparent is called referentially opaque.
 * When something went terribly wrong use function ```error :: String -> a```
 * Typeclasses define a set of functions that can have different implementations depending on the type of data they are given.
-
+* Map is strict in its keys, but nonstrict in its values. In other words, the spine, or structure,
+  of the map is always kept up-to-date, but values in the map aren’t evaluated unless we force them to be.
+  It is very important to remember this, as Map’s laziness over values is a frequent source of space leaks among coders who are not expecting it.
+* tick ```'``` at the end means that function is strict (evaluation immediate, not lazy)
 
 #### Advice
 * use ```-fwarn-name-shadowing```
@@ -154,7 +159,21 @@ Press Ctrl+D to exit the GHCi REPL
   class whenever we see fit
 * When you’re working in a do block, use <- to get results from IO actions and let to get 
   results from pure code.
-* 
+* use functions as data
 
 #### Naming Conventions
 * 
+
+
+#### About monads
+* Monadic simply means “pertaining to monads.” A monadic type is an instance of
+  the Monad typeclass; a monadic value has a monadic type.
+* When we say that a type “is a monad,” this is really a shorthand way of saying that
+  it’s an instance of the Monad typeclass. Being an instance of Monad gives us the necessary 
+  monadic triple of type constructor, injection function, and chaining function.
+* In the same way, a reference to “the Foo monad” implies that we’re talking about
+  the type named Foo and that it’s an instance of Monad.
+* An action is another name for a monadic value. This use of the word probably
+  originated with the introduction of monads for I/O, where a monadic value such
+  as print "foo" can have an observable side effect. A function with a monadic return
+  type might also be referred to as an action, though this is a little less common.

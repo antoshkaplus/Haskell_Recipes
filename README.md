@@ -9,3 +9,5 @@
 * 257 exersise.
 * TypeSynonymInstances, OverlappingInstances
 * finally and bracket to make sure close file handles
+* Array
+* implement binary tree, balanced
