@@ -26,6 +26,9 @@ Press Ctrl+D to exit the GHCi REPL
 * ```:k``` get kind, ```*``` concrete type
 * ```:l :r```
 
+#### About tools
+* runghc - run program as a script without installation
+
 #### Vocabulary
 * homogeneous
 * type variable
@@ -146,6 +149,7 @@ Press Ctrl+D to exit the GHCi REPL
   of the map is always kept up-to-date, but values in the map aren’t evaluated unless we force them to be.
   It is very important to remember this, as Map’s laziness over values is a frequent source of space leaks among coders who are not expecting it.
 * tick ```'``` at the end means that function is strict (evaluation immediate, not lazy)
+* When we want to track multiple pieces of state at once, the usual trick is to maintain them in a data type.
 
 #### Advice
 * use ```-fwarn-name-shadowing```
