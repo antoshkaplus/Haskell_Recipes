@@ -11,3 +11,6 @@
 * finally and bracket to make sure close file handles
 * Array
 * implement binary tree, balanced
+
+### ToRead
+* chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://dev.stephendiehl.com/hask/tutorial.pdf
